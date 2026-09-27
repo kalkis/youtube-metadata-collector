@@ -9,7 +9,7 @@ dependencies = []
 [dependency-groups]
 dev = [
     "boto3>=1.43.103",
-    "moto[dynamodb,ssm]>=5.2.3",
+    "moto[dynamodb,secretsmanager]>=5.2.3",
     "pytest>=9.1.1",
     "ruff>=0.16.9",
 ]

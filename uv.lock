@@ -402,9 +402,6 @@ dynamodb = [
     { name = "docker" },
     { name = "py-partiql-parser" },
 ]
-ssm = [
-    { name = "pyyaml" },
-]
 
 [[package]]
 name = "packaging"
@@ -644,7 +641,7 @@ source = { virtual = "." }
 [package.dev-dependencies]
 dev = [
     { name = "boto3" },
-    { name = "moto", extra = ["dynamodb", "ssm"] },
+    { name = "moto", extra = ["dynamodb"] },
     { name = "pytest" },
     { name = "ruff" },
 ]
@@ -654,7 +651,7 @@ dev = [
 [package.metadata.requires-dev]
 dev = [
     { name = "boto3", specifier = ">=1.43.103" },
-    { name = "moto", extras = ["dynamodb", "ssm"], specifier = ">=5.2.3" },
+    { name = "moto", extras = ["dynamodb", "secretsmanager"], specifier = ">=5.2.3" },
     { name = "pytest", specifier = ">=9.1.1" },
     { name = "ruff", specifier = ">=0.16.9" },
 ]
