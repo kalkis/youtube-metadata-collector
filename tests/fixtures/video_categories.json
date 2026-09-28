@@ -1,0 +1,16 @@
+{
+  "kind": "youtube#videoCategoryListResponse",
+  "etag": "KSJT_Yvcvca8oHAHbApJTUKRwYJ",
+  "items": [
+    {
+      "kind": "youtube#videoCategory",
+      "etag": "0a52z3Y0-lUQX3sKdJX4Bsgbxv6",
+      "id": "23",
+      "snippet": {
+        "title": "Comedy",
+        "assignable": true,
+        "channelId": "UC-2nBd0cD8Rp-8hP2Bt6BmQ"
+      }
+    }
+  ]
+}

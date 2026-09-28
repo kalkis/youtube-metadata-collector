@@ -1,0 +1,94 @@
+{
+  "kind": "youtube#videoListResponse",
+  "etag": "wvhjErTfBlTWTGFUG-HDPKd2c6u",
+  "items": [
+    {
+      "kind": "youtube#video",
+      "etag": "L2YTKwZTGctM80iWMriFzDKTwSV",
+      "id": "OLnDhajGPBM",
+      "snippet": {
+        "publishedAt": "2018-04-28T07:38:22Z",
+        "channelId": "UCB0V3qUQ7gpO1Vu9nCxITgQ",
+        "title": "Rainy Day Song | Nursery Rhymes and Songs for Children",
+        "description": "Sing along with our rainy day song for children!\n\nSubscribe for new nursery rhymes every week: https://example.com/subscribe\n\nSongs in this video:\n00:00 Rainy Day Song\n02:10 Puddle Jumping\n\n#nurseryrhymes #kidssongs",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/OLnDhajGPBM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/OLnDhajGPBM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/OLnDhajGPBM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/OLnDhajGPBM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/OLnDhajGPBM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Example Kids Songs",
+        "tags": [
+          "nursery rhymes",
+          "kids songs",
+          "songs for children",
+          "rain song",
+          "family songs"
+        ],
+        "categoryId": "24",
+        "liveBroadcastContent": "none",
+        "defaultLanguage": "en",
+        "localized": {
+          "title": "Rainy Day Song | Nursery Rhymes and Songs for Children",
+          "description": "Sing along with our rainy day song for children!\n\nSubscribe for new nursery rhymes every week: https://example.com/subscribe\n\nSongs in this video:\n00:00 Rainy Day Song\n02:10 Puddle Jumping\n\n#nurseryrhymes #kidssongs"
+        },
+        "defaultAudioLanguage": "en"
+      },
+      "contentDetails": {
+        "duration": "PT4M25S",
+        "dimension": "2d",
+        "definition": "hd",
+        "caption": "false",
+        "licensedContent": false,
+        "contentRating": {},
+        "projection": "rectangular"
+      },
+      "status": {
+        "uploadStatus": "processed",
+        "privacyStatus": "public",
+        "license": "youtube",
+        "embeddable": true,
+        "publicStatsViewable": false,
+        "madeForKids": true
+      },
+      "statistics": {
+        "viewCount": "418100840",
+        "likeCount": "871263",
+        "favoriteCount": "0"
+      },
+      "topicDetails": {
+        "topicCategories": [
+          "https://en.wikipedia.org/wiki/Entertainment"
+        ]
+      },
+      "paidProductPlacementDetails": {
+        "hasPaidProductPlacement": false
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 1
+  }
+}

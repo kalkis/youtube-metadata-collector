@@ -1,0 +1,88 @@
+{
+  "kind": "youtube#videoListResponse",
+  "etag": "e7kw3EzBHYivKDsz7s0hkZgZpV1",
+  "items": [
+    {
+      "kind": "youtube#video",
+      "etag": "QSAk1edYOYIj4oxA5KP5W1WxNA5",
+      "id": "bxE_eCcVA1s",
+      "snippet": {
+        "publishedAt": "2026-09-25T02:51:48Z",
+        "channelId": "UCuLXiiuyWIBK3FdBVMH3k9Q",
+        "title": "Making a quick lunch at home #minivlog #food #shorts",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/bxE_eCcVA1s/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/bxE_eCcVA1s/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/bxE_eCcVA1s/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/bxE_eCcVA1s/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/bxE_eCcVA1s/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Example Daily Vlogs",
+        "categoryId": "22",
+        "liveBroadcastContent": "none",
+        "defaultLanguage": "hi",
+        "localized": {
+          "title": "Making a quick lunch at home #minivlog #food #shorts",
+          "description": ""
+        },
+        "defaultAudioLanguage": "hi"
+      },
+      "contentDetails": {
+        "duration": "PT55S",
+        "dimension": "2d",
+        "definition": "hd",
+        "caption": "false",
+        "licensedContent": true,
+        "contentRating": {},
+        "projection": "rectangular"
+      },
+      "status": {
+        "uploadStatus": "processed",
+        "privacyStatus": "public",
+        "license": "youtube",
+        "embeddable": true,
+        "publicStatsViewable": true,
+        "madeForKids": false
+      },
+      "statistics": {
+        "viewCount": "292565",
+        "favoriteCount": "0",
+        "commentCount": "34"
+      },
+      "topicDetails": {
+        "topicCategories": [
+          "https://en.wikipedia.org/wiki/Food",
+          "https://en.wikipedia.org/wiki/Lifestyle_(sociology)"
+        ]
+      },
+      "paidProductPlacementDetails": {
+        "hasPaidProductPlacement": false
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 1
+  }
+}

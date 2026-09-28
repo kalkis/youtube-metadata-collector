@@ -1,0 +1,93 @@
+{
+  "kind": "youtube#videoListResponse",
+  "etag": "f-2NSMYnwrRi0Bdjyxp6GQYCe1a",
+  "items": [
+    {
+      "kind": "youtube#video",
+      "etag": "QN7shjHPagQxDI2wZd6Utkg6GQ5",
+      "id": "NWp0I6FtZ-0",
+      "snippet": {
+        "publishedAt": "2026-09-04T16:08:24Z",
+        "channelId": "UCSvFBf6b8dgoT7pkvnrz6xA",
+        "title": "Short Film Premiere | Live Q&A With the Cast After the Screening",
+        "description": "Join us for the premiere of our new short film, followed by a live Q&A with the cast and crew.\n\nThe film follows two neighbours who share a garden fence and nothing else.\n\nSubmit your questions in the chat during the screening.\n\nSupport our next film: https://example.com/support\nNewsletter: https://example.com/newsletter",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/NWp0I6FtZ-0/default_live.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/NWp0I6FtZ-0/mqdefault_live.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/NWp0I6FtZ-0/hqdefault_live.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/NWp0I6FtZ-0/sddefault_live.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/NWp0I6FtZ-0/maxresdefault_live.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Example Film Collective",
+        "categoryId": "29",
+        "liveBroadcastContent": "upcoming",
+        "defaultLanguage": "en",
+        "localized": {
+          "title": "Short Film Premiere | Live Q&A With the Cast After the Screening",
+          "description": "Join us for the premiere of our new short film, followed by a live Q&A with the cast and crew.\n\nThe film follows two neighbours who share a garden fence and nothing else.\n\nSubmit your questions in the chat during the screening.\n\nSupport our next film: https://example.com/support\nNewsletter: https://example.com/newsletter"
+        },
+        "defaultAudioLanguage": "en-US"
+      },
+      "contentDetails": {
+        "duration": "P0D",
+        "dimension": "2d",
+        "definition": "sd",
+        "caption": "false",
+        "licensedContent": false,
+        "contentRating": {},
+        "projection": "rectangular"
+      },
+      "status": {
+        "uploadStatus": "uploaded",
+        "privacyStatus": "public",
+        "license": "youtube",
+        "embeddable": true,
+        "publicStatsViewable": true,
+        "madeForKids": false
+      },
+      "statistics": {
+        "viewCount": "0",
+        "likeCount": "8",
+        "favoriteCount": "0",
+        "commentCount": "0"
+      },
+      "topicDetails": {
+        "topicCategories": [
+          "https://en.wikipedia.org/wiki/Film",
+          "https://en.wikipedia.org/wiki/Society"
+        ]
+      },
+      "liveStreamingDetails": {
+        "scheduledStartTime": "2026-09-30T23:29:51Z",
+        "activeLiveChatId": "Cg0KC05XcDBJNkZ0Wi0wKicKGFVDU3ZGQmY2YjhkZ29UN3Brdm5yejZ4QRILTldwMEk2RnRaLTA"
+      },
+      "paidProductPlacementDetails": {
+        "hasPaidProductPlacement": false
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 1
+  }
+}
