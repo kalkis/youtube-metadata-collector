@@ -54,7 +54,7 @@ Requires [uv](https://docs.astral.sh/uv/). Python 3.13 comes from `.python-versi
 ```sh
 uv sync --locked
 uv run pytest
-uv run ruff check && uv run ruff format --check
+uv run ruff check && uv run ruff format --check && uv run mypy
 docker build --platform linux/amd64 -t youtube-metadata-collector .
 ```
 

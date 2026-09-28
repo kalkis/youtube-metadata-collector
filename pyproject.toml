@@ -10,6 +10,7 @@ dependencies = []
 dev = [
     "boto3>=1.43.103",
     "moto[dynamodb,secretsmanager]>=5.2.3",
+    "mypy>=2.3.1",
     "pytest>=9.1.1",
     "ruff>=0.16.9",
 ]
@@ -20,3 +21,10 @@ package = false
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+
+[tool.mypy]
+files = ["*.py", "tests"]
+
+[[tool.mypy.overrides]]
+module = ["boto3.*", "botocore.*"]
+ignore_missing_imports = true

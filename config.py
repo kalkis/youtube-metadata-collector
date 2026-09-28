@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import re
+from collections.abc import Mapping
 from dataclasses import dataclass
 from functools import cache
 from urllib.parse import urlparse
@@ -29,13 +30,13 @@ class Config:
     log_level: str
 
 
-def load_config(env=os.environ) -> Config:
-    def required(name):
+def load_config(env: Mapping[str, str] = os.environ) -> Config:
+    def required(name: str) -> str:
         if not (value := env.get(name, "").strip()):
             raise ConfigError(f"{name} is required")
         return value
 
-    def positive_int(name, default):
+    def positive_int(name: str, default: str) -> int:
         try:
             value = int(env.get(name, default))
         except ValueError:

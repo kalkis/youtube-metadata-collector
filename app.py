@@ -5,12 +5,12 @@ import record
 import store
 import youtube
 from config import CONFIG, ConfigError
-from messages import InvalidMessage, parse_job
+from messages import InvalidMessage, Job, parse_job
 
 logger = logging.getLogger()
 
 
-def _upsert(job, log):
+def _upsert(job: Job, log: dict) -> None:
     video = youtube.video(job.video_id)
     if video is None:
         store.delete(job.video_id)
@@ -34,7 +34,7 @@ def _upsert(job, log):
     logger.info("Stored item", extra=log)
 
 
-def _process(job, log):
+def _process(job: Job, log: dict) -> None:
     if job.event == "delete":
         store.delete(job.video_id)
         logger.info("Deleted item", extra=log)
@@ -42,7 +42,7 @@ def _process(job, log):
         _upsert(job, log)
 
 
-def lambda_handler(event, context):
+def lambda_handler(event: dict, context: object) -> dict:
     youtube.channel.cache_clear()
     failures = []
     for message in event["Records"]:

@@ -14,19 +14,19 @@ VIDEO_PARTS = (
 
 
 class YouTubeApiError(Exception):
-    def __init__(self, method, status, reason):
+    def __init__(self, method: str, status: int | None, reason: str | None) -> None:
         super().__init__(f"{method} failed with status {status}: {reason}")
         self.method, self.status, self.reason = method, status, reason
 
 
-def _error_reason(error: HTTPError):
+def _error_reason(error: HTTPError) -> str | None:
     try:
         return json.load(error)["error"]["errors"][0]["reason"]
     except (OSError, HTTPException, ValueError, LookupError, TypeError):
         return None
 
 
-def _first_item(resource, **params) -> dict | None:
+def _first_item(resource: str, **params: str) -> dict | None:
     method = f"{resource}.list"
     query = urlencode(params | {"key": api_key()})
     url = f"{CONFIG.youtube_api_base_url}/{resource}?{query}"
@@ -51,16 +51,16 @@ def _first_item(resource, **params) -> dict | None:
     raise YouTubeApiError(method, status, "invalidResponse")
 
 
-def video(video_id) -> dict | None:
+def video(video_id: str) -> dict | None:
     return _first_item("videos", id=video_id, part=VIDEO_PARTS)
 
 
 # Cached per invocation: the handler calls channel.cache_clear() on entry.
 @cache
-def channel(channel_id) -> dict | None:
+def channel(channel_id: str) -> dict | None:
     return _first_item("channels", id=channel_id, part="statistics")
 
 
 @cache
-def video_category(category_id) -> dict | None:
+def video_category(category_id: str) -> dict | None:
     return _first_item("videoCategories", id=category_id, part="snippet")

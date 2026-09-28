@@ -30,13 +30,13 @@ def parse_job(body: str) -> Job:
     if not isinstance(message, dict):
         raise InvalidMessage("body is not a JSON object")
 
-    def one_of(name, allowed):
+    def one_of(name: str, allowed: tuple[str, ...]) -> str:
         value = message.get(name)
         if not (isinstance(value, str) and value in allowed):
             raise InvalidMessage(f"{name} must be one of {', '.join(allowed)}")
         return value
 
-    def matching(name, pattern):
+    def matching(name: str, pattern: re.Pattern[str]) -> str:
         value = message.get(name)
         if not (isinstance(value, str) and pattern.fullmatch(value)):
             raise InvalidMessage(f"{name} is not a valid {name.replace('_', ' ')}")

@@ -1,5 +1,6 @@
 import re
 from datetime import UTC, datetime
+from typing import Any
 
 SCHEMA_VERSION = 1
 SECONDS_PER_DAY = 86400
@@ -7,24 +8,24 @@ DURATION_PATTERN = re.compile(
     r"P(?:(\d+)W)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?"
 )
 DURATION_UNITS = (7 * SECONDS_PER_DAY, SECONDS_PER_DAY, 3600, 60, 1)
-EMPTY = (None, "", [], {})
+EMPTY: tuple = (None, "", [], {})
 
 
-def duration_seconds(duration) -> int | None:
+def duration_seconds(duration: object) -> int | None:
     match = isinstance(duration, str) and DURATION_PATTERN.fullmatch(duration)
     if not match or not any(match.groups()):
         return None
     return sum(int(n or 0) * unit for n, unit in zip(match.groups(), DURATION_UNITS))
 
 
-def _count(value) -> int | None:
+def _count(value: Any) -> int | None:
     try:
         return int(value)
     except (TypeError, ValueError):
         return None
 
 
-def _prune(value):
+def _prune(value: Any) -> Any:
     if isinstance(value, dict):
         pairs = ((k, _prune(v)) for k, v in value.items())
         return {k: v for k, v in pairs if v not in EMPTY}
