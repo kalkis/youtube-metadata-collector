@@ -4,13 +4,21 @@ import json
 import logging
 from datetime import datetime
 from types import SimpleNamespace
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qsl, urlsplit
 
 import pytest
-from conftest import API_KEY, load_fixture, set_api_key, set_secret_string
+from botocore.exceptions import ClientError
+from conftest import (
+    API_KEY,
+    FIXTURES,
+    load_fixture,
+    set_api_key,
+    set_secret_string,
+)
 
 import app
+import store
 import youtube
 from config import ConfigError
 from record import build_item
@@ -84,10 +92,10 @@ def app_logs(logs):
     return [r for r in logs.records if r.module == "app"]
 
 
-def quota_error():
-    body = {"error": {"code": 403, "errors": [{"reason": "quotaExceeded"}]}}
+def api_error(status=403, name="error_quota_exceeded"):
     url = f"https://example.com/videos?key={API_KEY}"
-    return HTTPError(url, 403, "Forbidden", {}, io.BytesIO(json.dumps(body).encode()))
+    body = io.BytesIO((FIXTURES / f"{name}.json").read_bytes())
+    return HTTPError(url, status, "error", {}, body)
 
 
 def test_upsert_stores_item(table):
@@ -123,6 +131,36 @@ def test_delete_removes_item(table, api, existing):
     assert api.requests == []
 
 
+def test_missing_channel_and_category_are_left_out(table, api):
+    del api.results[("channels", CHANNEL_ID)], api.results[("videoCategories", "23")]
+    assert invoke(job()) == failed()
+    item = get(table)
+    assert item["category_id"] == "23"
+    assert not {"channel_subscriber_count", "category_name"} & item.keys()
+
+
+@pytest.mark.parametrize("resource", ["channels", "videoCategories"])
+def test_secondary_lookup_failure_fails_record(table, api, resource):
+    key = next(k for k in api.results if k[0] == resource)
+    api.results[key] = api_error()
+    assert invoke(job()) == failed("m0")
+    assert get(table) is None
+
+
+def test_store_failure_fails_record(table, monkeypatch):
+    def put_item(**_):
+        raise ClientError({"Error": {"Code": "InternalServerError"}}, "PutItem")
+
+    monkeypatch.setattr(store.TABLE, "put_item", put_item)
+    assert invoke(job(), job("delete", video_id=OTHER_VIDEO_ID)) == failed("m0")
+
+
+def test_manual_upsert_without_channel_does_not_warn(table, logs):
+    assert invoke(job(source="manual")) == failed()
+    assert get(table)["source"] == "manual"
+    assert [r.levelname for r in app_logs(logs)] == ["INFO"]
+
+
 def test_channel_mismatch_warns_and_stores(table, logs):
     other = "UC" + "x" * 22
     assert invoke(job(channel_id=other)) == failed()
@@ -132,7 +170,7 @@ def test_channel_mismatch_warns_and_stores(table, logs):
 
 
 def test_mixed_batch_reports_only_failures(table, api, logs):
-    api.results[("videos", OTHER_VIDEO_ID)] = quota_error()
+    api.results[("videos", OTHER_VIDEO_ID)] = api_error()
     assert invoke(job(), "not json", job(video_id=OTHER_VIDEO_ID)) == failed("m1", "m2")
     assert get(table)
     invalid, error = [r for r in app_logs(logs) if r.levelname == "ERROR"]
@@ -141,12 +179,18 @@ def test_mixed_batch_reports_only_failures(table, api, logs):
 
 
 @pytest.mark.parametrize(
-    "break_secret", [lambda: set_api_key(" "), lambda: set_secret_string("not json")]
+    "break_secret",
+    [
+        lambda: set_api_key(" "),
+        lambda: set_secret_string("not json"),
+        lambda: set_secret_string(API_KEY),
+    ],
 )
 def test_config_error_fails_batch_until_fixed(table, break_secret):
     break_secret()
-    with pytest.raises(ConfigError):
-        invoke(job())
+    with pytest.raises(ConfigError) as error:
+        invoke(job("delete", video_id=OTHER_VIDEO_ID), job())
+    assert API_KEY not in str(error.value)
     set_api_key(API_KEY)
     assert invoke(job()) == failed()
     assert get(table)
@@ -166,8 +210,17 @@ def test_channel_cached_per_invocation(api):
     assert resources.count("videoCategories") == 1
 
 
-def test_logs_carry_ids_and_no_secrets(api, logs):
-    api.results[("videos", OTHER_VIDEO_ID)] = quota_error()
+@pytest.mark.parametrize(
+    "error",
+    [
+        api_error(),
+        api_error(400, "error_key_invalid"),
+        URLError(f"https://example.com/videos?key={API_KEY}"),
+        TimeoutError(),
+    ],
+)
+def test_logs_carry_ids_and_no_secrets(api, logs, error):
+    api.results[("videos", OTHER_VIDEO_ID)] = error
     invoke(job(channel_id="UC" + "x" * 22), "{}", job(video_id=OTHER_VIDEO_ID))
     records = app_logs(logs)
     assert len(records) == 4

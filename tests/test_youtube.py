@@ -7,7 +7,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import parse_qsl, urlsplit
 
 import pytest
-from conftest import API_KEY, set_api_key
+from conftest import API_KEY, FIXTURES, set_api_key
 
 import youtube
 from config import CONFIG, ConfigError
@@ -23,9 +23,8 @@ def http_error(status, body):
     return HTTPError(LEAKY_URL, status, "error", {}, io.BytesIO(body))
 
 
-def quota_error():
-    body = {"error": {"code": 403, "errors": [{"reason": "quotaExceeded"}]}}
-    return http_error(403, json.dumps(body).encode())
+def fixture_error(status, name):
+    return http_error(status, (FIXTURES / f"{name}.json").read_bytes())
 
 
 class FakeApi:
@@ -134,7 +133,8 @@ def test_failure_is_not_cached(api):
 @pytest.mark.parametrize(
     "result, status, reason",
     [
-        (quota_error(), 403, "quotaExceeded"),
+        (fixture_error(403, "error_quota_exceeded"), 403, "quotaExceeded"),
+        (fixture_error(400, "error_key_invalid"), 400, "badRequest"),
         (http_error(500, b"<html>oops</html>"), 500, None),
         (URLError("unreachable"), None, "URLError"),
         (TimeoutError("timed out"), None, "TimeoutError"),
