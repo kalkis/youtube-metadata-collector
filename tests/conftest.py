@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 
 import boto3
 import pytest
@@ -7,6 +8,7 @@ from moto import mock_aws
 
 API_KEY = "test-api-key"
 API_KEY_SECRET_ID = "youtube-data-api"
+FIXTURES = Path(__file__).parent / "fixtures"
 
 os.environ.pop("AWS_PROFILE", None)
 os.environ["AWS_DEFAULT_REGION"] = "eu-west-1"
@@ -26,6 +28,10 @@ os.environ |= {
 
 def pytest_unconfigure(config):
     MOCK.stop()
+
+
+def load_fixture(name):
+    return json.loads((FIXTURES / f"{name}.json").read_text())
 
 
 def set_secret_string(value):
