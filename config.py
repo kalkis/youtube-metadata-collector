@@ -86,4 +86,5 @@ def api_key() -> str:
 SECRETS = boto3.client("secretsmanager")
 CONFIG = load_config()
 logger.setLevel(CONFIG.log_level)
-logging.getLogger("botocore").setLevel(max(logger.level, logging.INFO))
+for name in ("boto3", "botocore"):
+    logging.getLogger(name).setLevel(max(logger.level, logging.INFO))
